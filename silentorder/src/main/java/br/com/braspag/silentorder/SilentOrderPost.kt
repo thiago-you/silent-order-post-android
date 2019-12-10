@@ -6,7 +6,7 @@ import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_RAW_NUMB
 import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_SECURITY_CODE
 import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_HOLDER
 
-object SilentOrderPost {
+class SilentOrderPost(private val environment: Environment) {
 
     private var language = "PT"
     private var cvvvRequired = true
@@ -14,9 +14,9 @@ object SilentOrderPost {
     private var enableBinQuery = false
     private var provider = "cielo"
 
+    var accessToken: String = ""
+
     fun call(
-        environment: Environment,
-        accessToken: String,
         cardHolderName: String = "",
         cardNumber: String = "",
         cardExpirationDate: String = "",
@@ -28,23 +28,7 @@ object SilentOrderPost {
     ) {
 
         // validate input
-        val validationErrors = mutableListOf<ValidationResults>()
-        if (cardHolderName.isEmpty()) {
-            validationErrors.add(ValidationResults(FIELD_HOLDER, "Nome do portador é um campo obrigatório!"))
-        }
-
-        if (cardNumber.isEmpty()) {
-            validationErrors.add(ValidationResults(FIELD_RAW_NUMBER, "Número do cartão é um campo obrigatório!"))
-        }
-
-        if (cardExpirationDate.isEmpty()) {
-            validationErrors.add(ValidationResults(FIELD_EXPIRATION, "Data de expiração do cartão é um campo obrigatório!"))
-        }
-
-        if (cardCvv.isEmpty()) {
-            validationErrors.add(ValidationResults(FIELD_SECURITY_CODE, "CVV é um campo obrigatório!"))
-        }
-
+        val validationErrors = validate(cardHolderName, cardNumber, cardExpirationDate, cardCvv)
         if (validationErrors.isNotEmpty()) {
             onValidation?.invoke(validationErrors)
             return
@@ -65,8 +49,55 @@ object SilentOrderPost {
 
         // return the results
     }
+
+    private fun validate(
+        cardHolderName: String = "",
+        cardNumber: String = "",
+        cardExpirationDate: String = "",
+        cardCvv: String = ""
+    ): List<ValidationResults> {
+
+        // validate input
+        val validationErrors = mutableListOf<ValidationResults>()
+
+        if (cardHolderName.isEmpty()) {
+            validationErrors.add(
+                ValidationResults(
+                    FIELD_HOLDER,
+                    "Nome do portador é um campo obrigatório!"
+                )
+            )
+        }
+
+        if (cardNumber.isEmpty()) {
+            validationErrors.add(
+                ValidationResults(
+                    FIELD_RAW_NUMBER,
+                    "Número do cartão é um campo obrigatório!"
+                )
+            )
+        }
+
+        if (cardExpirationDate.isEmpty()) {
+            validationErrors.add(
+                ValidationResults(
+                    FIELD_EXPIRATION,
+                    "Data de expiração do cartão é um campo obrigatório!"
+                )
+            )
+        }
+
+        if (cardCvv.isEmpty()) {
+            validationErrors.add(
+                ValidationResults(
+                    FIELD_SECURITY_CODE,
+                    "CVV é um campo obrigatório!"
+                )
+            )
+        }
+
+        return validationErrors
+    }
 }
 
-private fun validate() {
 
-}

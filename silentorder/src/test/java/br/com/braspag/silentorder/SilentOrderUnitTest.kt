@@ -1,41 +1,67 @@
 package br.com.braspag.silentorder
 
 import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Before
 
 class SilentOrderUnitTest {
 
-    @Test
-    fun silentOrderPost_isCorrect() {
+    private lateinit var sdk: SilentOrderPost
 
-        SilentOrderPost.call(
-            environment = Environment.SANDBOX,
-            accessToken = "NTk1YTgzNjAtNWVjYy00YWY1LWE0MmQtYTJmZWEyMDJhNWI2LTU5MzY0ODM3Mg==",
-            cardHolderName = "Joselito Barbacena",
-            cardNumber = "4000000000001091",
-            cardExpirationDate = "10/2029",
-            cardCvv = "621",
-            onError = { e -> println(">>>>>>>> Error - $e - errorCode: ${e.errorCode} - errorMessage: ${e.errorMessage}") },
-            onSuccess = { s -> println(">>>>>> Success - $s")},
-            onValidation = { v -> println(">>>>>> Validation - $v")}
-        )
+    var validationErrors: List<ValidationResults> = mutableListOf()
+    lateinit var error: ErrorResult
 
-        assertEquals(4, 2 + 2)
+    @Before
+    fun setup() {
+        sdk = SilentOrderPost(Environment.SANDBOX)
     }
 
     @Test
     fun silentOrderPost_invalid() {
 
-        SilentOrderPost.call(
-            environment = Environment.SANDBOX,
-            accessToken = "NTk1YTgzNjAtNWVjYy00YWY1LWE0MmQtYTJmZWEyMDJhNWI2LTU5MzY0ODM3Mg==",
+        // must change for each call
+        sdk.accessToken = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
+        sdk.call(
             cardCvv = "xxx",
-            onError = { e -> println(">>>>>>>> Error - $e - errorCode: ${e.errorCode} - errorMessage: ${e.errorMessage}") },
-            onSuccess = { s -> println(">>>>>> Success - $s")},
-            onValidation = { v -> println(">>>>>> Validation: $v")}
+            onError = errorFunction,
+            onSuccess = successFunction,
+            onValidation = validationFunction
         )
 
-        assertEquals(4, 2 + 2)
+        assert(validationErrors.isNotEmpty())
     }
+
+    @Test
+    fun silentOrderPost_isUnauthorized() {
+
+        // must change for each call
+        sdk.accessToken = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
+        sdk.call(
+            cardHolderName = "Joselito Barbacena",
+            cardNumber = "4000000000001091",
+            cardExpirationDate = "10/2029",
+            cardCvv = "621",
+            onError = errorFunction,
+            onSuccess = successFunction,
+            onValidation = validationFunction
+        )
+
+        assert(error.errorCode.toInt() == 401)
+    }
+
+    private val validationFunction: ((v: List<ValidationResults>) -> Unit) = {
+        println(">>>>>> Validation: $it")
+        validationErrors = it
+    }
+
+    private val errorFunction: ((e: ErrorResult) -> Unit) = {
+        println(">>>>>>>> Error - $it - errorCode: ${it.errorCode} - errorMessage: ${it.errorMessage}")
+        error = it
+    }
+
+    private val successFunction: ((s: SuccessResult) -> Unit) = {
+        println(">>>>>> Success - $it")
+    }
+
 }
