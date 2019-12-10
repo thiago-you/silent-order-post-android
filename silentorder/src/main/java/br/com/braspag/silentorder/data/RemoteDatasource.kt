@@ -83,7 +83,6 @@ internal class RemoteDatasource {
         } else {
 
             val body = response.body
-            println("body: $body")
 
             onError?.invoke(
                 ErrorResult(
