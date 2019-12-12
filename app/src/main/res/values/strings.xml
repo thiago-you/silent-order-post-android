@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SilentOrderPost</string>
+    <string name="app_name">SilentOrderPost sample</string>
+    <string name="title_activity_main">SilentOrderPost sample</string>
+    <string name="action_settings">Settings</string>
 </resources>
