@@ -16,7 +16,7 @@ class SilentOrderPost(private val environment: Environment) {
 
     var accessToken: String = ""
 
-    fun call(
+    fun sendCardData(
         cardHolderName: String = "",
         cardNumber: String = "",
         cardExpirationDate: String = "",

@@ -21,7 +21,7 @@ class SilentOrderUnitTest {
         // must change for each call
         sdk.accessToken = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 
-        sdk.call(
+        sdk.sendCardData(
             cardCvv = "xxx",
             onError = errorFunction,
             onSuccess = successFunction,
@@ -37,7 +37,7 @@ class SilentOrderUnitTest {
         // must change for each call
         sdk.accessToken = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 
-        sdk.call(
+        sdk.sendCardData(
             cardHolderName = "Joselito Barbacena",
             cardNumber = "4000000000001091",
             cardExpirationDate = "10/2029",

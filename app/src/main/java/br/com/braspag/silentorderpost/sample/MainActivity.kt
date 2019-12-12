@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         snackbar("Sucesso! AccessToken = $accessToken")
 
         sdk.accessToken = accessToken
-        sdk.call(
+        sdk.sendCardData(
             cardHolderName = "Joselito Barbacena",
             cardNumber = "4000000000001091",
             cardExpirationDate = "10/2029",
