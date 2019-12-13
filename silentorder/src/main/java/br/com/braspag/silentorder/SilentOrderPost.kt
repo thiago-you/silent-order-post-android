@@ -11,17 +11,16 @@ class SilentOrderPost(private val environment: Environment) {
     private var language = "PT"
     private var cvvvRequired = true
     private var mod10required = true
-    private var enableBinQuery = false
     private var provider = "cielo"
 
     var accessToken: String = ""
+    var enableBinQuery = false
 
     fun sendCardData(
         cardHolderName: String = "",
         cardNumber: String = "",
         cardExpirationDate: String = "",
         cardCvv: String = "",
-        enableBinquery: Boolean? = false,
         onValidation: ((List<ValidationResults>) -> Unit)?,
         onSuccess: ((SuccessResult) -> Unit)?,
         onError: ((ErrorResult) -> Unit)?
@@ -42,6 +41,7 @@ class SilentOrderPost(private val environment: Environment) {
             cardNumber,
             cardExpirationDate,
             cardCvv,
+            enableBinQuery,
             onValidation,
             onSuccess,
             onError

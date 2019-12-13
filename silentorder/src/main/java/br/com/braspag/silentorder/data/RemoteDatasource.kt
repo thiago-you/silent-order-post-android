@@ -33,6 +33,7 @@ internal class RemoteDatasource {
         cardNumber: String,
         cardExpiration: String,
         cardSecurityCode: String,
+        enableBinQuery: Boolean,
         onValidation: ((List<ValidationResults>) -> Unit)?,
         onSuccess: ((SuccessResult) -> Unit)?,
         onError: ((ErrorResult) -> Unit)?
@@ -59,6 +60,7 @@ internal class RemoteDatasource {
             .add(FIELD_RAW_NUMBER, cardNumber)
             .add(FIELD_EXPIRATION, cardExpiration)
             .add(FIELD_SECURITY_CODE, cardSecurityCode)
+            .add(FIELD_ENABLE_BINQUERY, enableBinQuery.toString())
             .build()
 
         val request = Request.Builder()

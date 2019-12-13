@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         get() = parentJob + Dispatchers.IO
     private val scope = CoroutineScope(coroutineContext)
 
-
     val sdk = SilentOrderPost(Environment.SANDBOX)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
 
             scope.launch {
                 TokenRemoteDatasource.getAccessToken(
@@ -45,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         snackbar("Sucesso! AccessToken = $accessToken")
 
         sdk.accessToken = accessToken
+        sdk.enableBinQuery = true
+
         sdk.sendCardData(
             cardHolderName = "Joselito Barbacena",
             cardNumber = "4000000000001091",
