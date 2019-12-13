@@ -10,11 +10,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 object TokenRemoteDatasource {
 
-    const val SANDBOX_URL =
-        "https://transactionsandbox.pagador.com.br/post/api/public/v1/accesstoken?merchantid=538c04ae-f377-4da8-803b-67c812616387"
-
-    const val PRODUCTION_URL =
-        "https://transactionsandbox.pagador.com.br/post/api/public/v1/accesstoken?merchantid=538c04ae-f377-4da8-803b-67c812616387"
+    private const val SANDBOX_URL =
+        "https://transactionsandbox.pagador.com.br/post/api/public/v1/accesstoken?merchantid="
 
     fun getAccessToken(
         merchantId: String,
@@ -35,7 +32,7 @@ object TokenRemoteDatasource {
             .build()
 
         val request = Request.Builder()
-            .url(SANDBOX_URL)
+            .url(SANDBOX_URL.plus(merchantId))
             .post("".toRequestBody())
             .build()
 
