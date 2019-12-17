@@ -32,7 +32,7 @@ Exemplo:
 
 #### Requisição
 
-    POST ```/v1/accesstoken?merchantid={mid}```
+    POST /v1/accesstoken?merchantid={mid}
 
 | Propriedade |	Descrição |	Tipo | Tamanho | Obrigatório |
 |-------------|-----------|------|---------|------------|
@@ -91,6 +91,12 @@ De posse do ***AccessToken***, é obrigatório configurá-lo antes do envio de d
 
 ```
 sdk.accessToken = accessToken
+```
+
+Você pode também habilitar o binQuery (por default é ***false***).
+
+```
+sdk.enableBinQuery = true
 ```
 
 2.4 - Envio de dados do cartão
