@@ -20,6 +20,7 @@ class SilentOrderUnitTest {
 
         // must change for each call
         sdk.accessToken = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        sdk.enableBinQuery = true
 
         sdk.sendCardData(
             cardCvv = "xxx",
@@ -36,6 +37,7 @@ class SilentOrderUnitTest {
 
         // must change for each call
         sdk.accessToken = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        sdk.enableBinQuery = true
 
         sdk.sendCardData(
             cardHolderName = "Joselito Barbacena",
