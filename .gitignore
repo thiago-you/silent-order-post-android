@@ -122,3 +122,6 @@ gradle-app.setting
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# do not version API Key
+silentorder/keystore.gradle
