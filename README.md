@@ -52,15 +52,24 @@ Como resposta, o estabelecimento receberá um json (HTTP 201 Created) contendo e
 | ExpiresIn | Data e hora da expiração	| Texto | - |AAAA-MM-DDTHH:MM:SS |
 
 
-    Por questões de segurança, será requerido obrigatoriamente o cadastro de um IP válido do estabelecimento na Cielo. Caso contrário a requisição não será autorizada (HTTP 401 NotAuthorized). Por favor, identificar qual será o IP de saída que acessará a API e na sequência solicitar o cadastro do mesmo através do canal de atendimento Cielo
+> Por questões de segurança, será requerido obrigatoriamente o cadastro de um IP válido do estabelecimento na Cielo.
+> Caso contrário a requisição não será autorizada (HTTP 401 NotAuthorized). 
+> Por favor, identificar qual será o IP de saída que acessará a API e na sequência solicitar o cadastro do mesmo através do canal de atendimento Cielo.
     
 ### 2. Usando o SDK e enviando dados do cartão
 
+
+
 Uma vez que já tenha sido obtido o ***AccessToken***, é necessário instanciar o SDK e enviar os dados do cartão.
 
-Para utilizar o SDK, é necessário incluir a biblioteca ***silentorder.aar*** no seu projeto.
+Para utilizar o SDK, é necessário incluí-lo ao seu projeto com a adição da dependência ao *build.gradle* do seu módulo:
 
-Para isso, basta baixar a última release da biblioteca disponibilizada no Github (TODO definir URL de download) e colocá-la na pasta ```app/libs```.
+```kotlin
+dependencies {
+ ...
+ implementation 'br.com.cielo.silent-order-post'
+}
+```
 
 Feito isso, podemos proseguir com um exemplo de utilização.
 
