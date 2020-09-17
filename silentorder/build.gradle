@@ -1,12 +1,32 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'org.jetbrains.dokka-android'
-apply plugin: 'maven-publish'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+}
 
 ext {
+    bintrayRepo = 'silent-order-post'
+    bintrayName = 'silent-order-post'
+
+    publishedGroupId = 'br.com.cielo'
+    libraryName = 'silent-order-post'
+    artifact = 'silent-order-post'
+
+    libraryDescription = 'Payment data is securely trafficked maintaining complete control over the checkout experience.'
+
+    siteUrl = 'https://github.com/DeveloperCielo/silent-order-post-android'
+    gitUrl = 'https://github.com/DeveloperCielo/silent-order-post-android.git'
+
     libraryVersion = '1.0.1'
+
+    developerId = 'mauricifj'
+    developerName = 'Maurici Ferreira Junior'
+    developerEmail = 'm.f.j@hotmail.com'
+    developerUrl = "https://github.com/Mauricifj"
+
+    licenseName = 'MIT License'
+    licenseUrl = 'https://github.com/developercielo/cielo-bin-query/blob/master/LICENSE'
+    allLicenses = ["MIT"]
 }
 
 android {
@@ -14,14 +34,13 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName libraryVersion
         archivesBaseName = "silent-order-post"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -36,14 +55,7 @@ android {
     }
 }
 
-dokka {
-    outputFormat = 'html'
-    outputDirectory = "$buildDir/javadoc"
-}
-
-
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
@@ -56,4 +68,4 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
-apply from: 'deploy.gradle'
+apply from: 'publish.gradle'
