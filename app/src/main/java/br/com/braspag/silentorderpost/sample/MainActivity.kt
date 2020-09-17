@@ -29,10 +29,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener {
-
             scope.launch {
                 TokenRemoteDatasource.getAccessToken(
-                    "538c04ae-f377-4da8-803b-67c812616387",
+                    "YOUR-MERCHANT-ID",
                     onSuccess = { s -> silentOrder(s) },
                     onError = { e -> snackbar("Error! code = $e") }
                 )
