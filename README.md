@@ -67,7 +67,7 @@ Para utilizar o SDK, é necessário incluí-lo ao seu projeto com a adição da 
 ```kotlin
 dependencies {
  ...
- implementation 'br.com.cielo.silent-order-post'
+ implementation 'br.com.cielo.silent-order-post:LATEST_VERSION'
 }
 ```
 
