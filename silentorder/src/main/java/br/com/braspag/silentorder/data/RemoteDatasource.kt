@@ -1,9 +1,6 @@
 package br.com.braspag.silentorder.data
 
-import br.com.braspag.silentorder.Environment
-import br.com.braspag.silentorder.ErrorResult
-import br.com.braspag.silentorder.SuccessResult
-import br.com.braspag.silentorder.ValidationResults
+import br.com.braspag.silentorder.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.FormBody
@@ -63,7 +60,9 @@ internal class RemoteDatasource {
             .add(FIELD_ENABLE_BINQUERY, enableBinQuery.toString())
             .build()
 
+        val xSdkVersion = BuildConfig.X_SDK_VERSION
         val request = Request.Builder()
+            .addHeader("x-sdk-version", xSdkVersion)
             .url(url)
             .post(formBody)
             .build()
