@@ -17,7 +17,7 @@ ext {
     siteUrl = 'https://github.com/DeveloperCielo/silent-order-post-android'
     gitUrl = 'https://github.com/DeveloperCielo/silent-order-post-android.git'
 
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.2'
 
     developerId = 'mauricifj'
     developerName = 'Maurici Ferreira Junior'
