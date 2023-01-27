@@ -5,7 +5,9 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29
+    namespcae "br.com.braspag.silentorderpost"
+
+    compileSdkVersion 33
     buildToolsVersion "33.0.1"
 
     defaultConfig {
