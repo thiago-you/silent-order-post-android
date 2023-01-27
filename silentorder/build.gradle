@@ -4,40 +4,15 @@ plugins {
     id 'kotlin-android-extensions'
 }
 
-ext {
-    bintrayRepo = 'silent-order-post'
-    bintrayName = 'silent-order-post'
-
-    publishedGroupId = 'br.com.cielo'
-    libraryName = 'silent-order-post'
-    artifact = 'silent-order-post'
-
-    libraryDescription = 'Payment data is securely trafficked maintaining complete control over the checkout experience.'
-
-    siteUrl = 'https://github.com/DeveloperCielo/silent-order-post-android'
-    gitUrl = 'https://github.com/DeveloperCielo/silent-order-post-android.git'
-
-    libraryVersion = '1.0.2'
-
-    developerId = 'mauricifj'
-    developerName = 'Maurici Ferreira Junior'
-    developerEmail = 'm.f.j@hotmail.com'
-    developerUrl = "https://github.com/Mauricifj"
-
-    licenseName = 'MIT License'
-    licenseUrl = 'https://github.com/developercielo/cielo-bin-query/blob/master/LICENSE'
-    allLicenses = ["MIT"]
-}
-
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "33.0.1"
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName libraryVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         archivesBaseName = "silent-order-post"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -51,21 +26,18 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField('String', 'X_SDK_VERSION', "\"CieloSilentOrderPost-Android@$libraryVersion\"")
+        it.buildConfigField('String', 'X_SDK_VERSION', "\"CieloSilentOrderPost-Android@${rootProject.ext.versionName}\"")
     }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation "com.squareup.okhttp3:okhttp:4.2.1"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
-    implementation 'com.squareup.moshi:moshi-kotlin:1.9.2'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
-
-apply from: 'publish.gradle'
