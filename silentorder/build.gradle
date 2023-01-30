@@ -11,14 +11,13 @@ android {
     buildToolsVersion "33.0.1"
 
     defaultConfig {
-        applicationId "br.com.braspag.silentorderpost"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
-        archivesBaseName = "silent-order-post"
 
+        archivesBaseName = "silent-order-post"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'X_SDK_VERSION', "\"CieloSilentOrderPost-Android@${rootProject.ext.versionName}\""
     }
 
     buildTypes {
@@ -27,15 +26,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    buildTypes.each {
-        it.buildConfigField('String', 'X_SDK_VERSION', "\"CieloSilentOrderPost-Android@${rootProject.ext.versionName}\"")
-    }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
     implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'

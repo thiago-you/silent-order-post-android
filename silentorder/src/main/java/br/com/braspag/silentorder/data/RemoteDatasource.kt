@@ -1,6 +1,7 @@
 package br.com.braspag.silentorder.data
 
 import br.com.braspag.silentorder.*
+import br.com.braspag.silentorderpost.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.FormBody
@@ -23,6 +24,7 @@ internal class RemoteDatasource {
         const val FIELD_ENABLE_BINQUERY = "EnableBinQuery"
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun silentOrder(
         environment: Environment,
         accessToken: String,
@@ -42,7 +44,7 @@ internal class RemoteDatasource {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-        val successJsonAdapter = moshi.adapter<SuccessResult>(SuccessResult::class.java)
+        val successJsonAdapter = moshi.adapter(SuccessResult::class.java)
 
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -82,9 +84,6 @@ internal class RemoteDatasource {
                 )
             )
         } else {
-
-            val body = response.body
-
             onError?.invoke(
                 ErrorResult(
                     errorCode = response.code.toString(),
