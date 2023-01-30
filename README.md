@@ -6,6 +6,14 @@ O SDK **Silent Order Post** é uma integração que a **Cielo** oferece aos loji
 
 Esse método possibilita o envio dos dados do pagamento do seu cliente de forma segura, diretamente em nosso sistema. Os dados de pagamento, tais como número do cartão e data de validade são armazenados no ambiente da **Cielo**, que conta com a certificação PCI DSS 3.2.
 
+## Últimas Alterações
+- Migração do repositório JCenter (descontinuado) para o Jitpack.io
+- Migração das dependências de Support (Jetifier) para Androidx
+- Atualização SDK suportado e compilado para a API 33
+- Atualização das depêndencias do Gradle
+- Removido plugins depreciados (kotlin synthetics)
+- Atualizado versão do Gradle e do Kotlin
+
 ## Características
 
 - Captura de dados de pagamento diretamente para os sistemas da Cielo por meio dos campos definidos no seu checkout através dop SDK.
@@ -58,16 +66,23 @@ Como resposta, o estabelecimento receberá um json (HTTP 201 Created) contendo e
     
 ### 2. Usando o SDK e enviando dados do cartão
 
-
-
 Uma vez que já tenha sido obtido o ***AccessToken***, é necessário instanciar o SDK e enviar os dados do cartão.
 
-Para utilizar o SDK, é necessário incluí-lo ao seu projeto com a adição da dependência ao *build.gradle* do seu módulo:
+Para utilizar, adicione o respositório do Jitpack.io no `build.gradle` raíz do projeto:
 
-```kotlin
+```gradle
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+Depois, adicione a implementação da dependência no `build.gradle` do seu módulo (app):
+
+```gradle
 dependencies {
- ...
- implementation 'br.com.cielo.silent-order-post:LATEST_VERSION'
+    implementation 'com.github.thiago-you:silent-order-post:1.0.0'
 }
 ```
 
