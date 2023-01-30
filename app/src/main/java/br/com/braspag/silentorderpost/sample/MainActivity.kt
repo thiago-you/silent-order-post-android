@@ -3,11 +3,11 @@ package br.com.braspag.silentorderpost.sample
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import br.com.braspag.silentorder.Environment
 import br.com.braspag.silentorder.SilentOrderPost
-import br.com.braspag.silentorderpost.R
 import br.com.braspag.silentorderpost.sample.data.remote.TokenRemoteDatasource
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,14 +21,18 @@ class MainActivity : AppCompatActivity() {
         get() = parentJob + Dispatchers.IO
     private val scope = CoroutineScope(coroutineContext)
 
-    val sdk = SilentOrderPost(Environment.SANDBOX)
+    private val sdk = SilentOrderPost(Environment.SANDBOX)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 
-        fab.setOnClickListener {
+        setContentView(R.layout.activity_main)
+
+        findViewById<Toolbar>(R.id.toolbar)?.also { toolbar ->
+            setSupportActionBar(toolbar)
+        }
+
+        findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
             scope.launch {
                 TokenRemoteDatasource.getAccessToken(
                     "YOUR-MERCHANT-ID",
@@ -57,7 +61,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun snackbar(message: String) {
-        Snackbar.make(fab.rootView, message, Snackbar.LENGTH_LONG).show()
+        findViewById<FloatingActionButton>(R.id.fab)?.also { fab ->
+            Snackbar.make(fab.rootView, message, Snackbar.LENGTH_LONG).show()
+        }
     }
-
 }

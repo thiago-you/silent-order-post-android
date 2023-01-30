@@ -22,7 +22,7 @@ object TokenRemoteDatasource {
             .add(KotlinJsonAdapterFactory())
             .build()
 
-        val successJsonAdapter = moshi.adapter<AccessTokenResponse>(AccessTokenResponse::class.java)
+        val successJsonAdapter = moshi.adapter(AccessTokenResponse::class.java)
 
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY

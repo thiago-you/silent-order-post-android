@@ -1,17 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
 }
 
 android {
-    namespace "br.com.braspag.silentorderpost"
+    namespace "br.com.braspag.silentorderpost.sample"
 
     compileSdkVersion 33
     buildToolsVersion "33.0.1"
 
     defaultConfig {
-        applicationId "br.com.braspag.silentorderpost"
+        applicationId "br.com.braspag.silentorderpost.sample"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
