@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Cielo Silent Order
+-keepclasseswithmembers class br.com.braspag.silentorder.model.** { *; }
+-keepclasseswithmembers interface br.com.braspag.silentorder.model.** { *; }

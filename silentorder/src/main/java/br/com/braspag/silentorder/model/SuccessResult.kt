@@ -1,4 +1,4 @@
-package br.com.braspag.silentorder
+package br.com.braspag.silentorder.model
 
 import com.squareup.moshi.Json
 

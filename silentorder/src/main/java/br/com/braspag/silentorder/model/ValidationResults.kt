@@ -1,4 +1,4 @@
-package br.com.braspag.silentorder
+package br.com.braspag.silentorder.model
 
 data class ValidationResults(
     val field: String,

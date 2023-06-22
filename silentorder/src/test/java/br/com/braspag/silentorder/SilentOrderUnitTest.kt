@@ -1,5 +1,8 @@
 package br.com.braspag.silentorder
 
+import br.com.braspag.silentorder.model.ErrorResult
+import br.com.braspag.silentorder.model.SuccessResult
+import br.com.braspag.silentorder.model.ValidationResults
 import org.junit.Test
 import org.junit.Before
 

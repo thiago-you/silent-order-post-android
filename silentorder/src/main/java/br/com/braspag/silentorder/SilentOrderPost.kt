@@ -5,6 +5,9 @@ import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_EXPIRATI
 import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_RAW_NUMBER
 import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_SECURITY_CODE
 import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_HOLDER
+import br.com.braspag.silentorder.model.ErrorResult
+import br.com.braspag.silentorder.model.SuccessResult
+import br.com.braspag.silentorder.model.ValidationResults
 
 class SilentOrderPost(private val environment: Environment) {
 

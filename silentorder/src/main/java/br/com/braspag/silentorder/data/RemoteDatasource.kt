@@ -1,6 +1,9 @@
 package br.com.braspag.silentorder.data
 
 import br.com.braspag.silentorder.*
+import br.com.braspag.silentorder.model.ErrorResult
+import br.com.braspag.silentorder.model.SuccessResult
+import br.com.braspag.silentorder.model.ValidationResults
 import br.com.braspag.silentorderpost.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
