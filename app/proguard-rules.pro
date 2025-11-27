@@ -23,3 +23,6 @@
 # Cielo Silent Order
 -keepclasseswithmembers class br.com.braspag.silentorder.model.** { *; }
 -keepclasseswithmembers interface br.com.braspag.silentorder.model.** { *; }
+
+-keepclasseswithmembers class br.com.braspag.silentorder.** { *; }
+-keepclasseswithmembers interface br.com.braspag.silentorder.** { *; }
