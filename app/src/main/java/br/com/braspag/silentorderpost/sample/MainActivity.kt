@@ -4,8 +4,8 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import br.com.braspag.silentorder.Environment
 import br.com.braspag.silentorder.SilentOrderPost
+import br.com.braspag.silentorder.model.Environment
 import br.com.braspag.silentorderpost.sample.data.remote.TokenRemoteDatasource
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope

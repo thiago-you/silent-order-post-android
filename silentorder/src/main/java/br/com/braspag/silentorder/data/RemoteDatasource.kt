@@ -1,6 +1,6 @@
 package br.com.braspag.silentorder.data
 
-import br.com.braspag.silentorder.*
+import br.com.braspag.silentorder.model.Environment
 import br.com.braspag.silentorder.model.ErrorResult
 import br.com.braspag.silentorder.model.SuccessResult
 import br.com.braspag.silentorder.model.ValidationResults
