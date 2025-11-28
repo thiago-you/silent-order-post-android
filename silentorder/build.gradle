@@ -16,8 +16,6 @@ android {
 
         archivesBaseName = "silent-order-post"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField 'String', 'X_SDK_VERSION', "\"CieloSilentOrderPost-Android@${rootProject.ext.versionName}\""
     }
 
     buildTypes {

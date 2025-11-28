@@ -1,4 +1,4 @@
-package br.com.braspag.silentorder.data
+package br.com.braspag.silentorder.network
 
 import br.com.braspag.silentorder.model.SuccessResult
 import com.squareup.moshi.Moshi
