@@ -32,7 +32,7 @@ internal class RemoteDatasource(
         val apiResult = ApiResult(
             code = response.code.toString(),
             message = response.message,
-            result = successResult
+            data = successResult
         )
         
         onResult.onResult(apiResult)
