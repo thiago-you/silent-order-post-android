@@ -1,10 +1,7 @@
 package br.com.braspag.silentorder.data
 
-import br.com.braspag.silentorder.model.Environment
-import br.com.braspag.silentorder.model.SuccessResult
+import br.com.braspag.silentorder.enums.Environment
 import br.com.braspag.silentorderpost.BuildConfig
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request

@@ -1,6 +1,6 @@
 package br.com.braspag.silentorder.data
 
-import br.com.braspag.silentorder.model.CardFields
+import br.com.braspag.silentorder.enums.CardFields
 import okhttp3.FormBody
 
 object ApiFormBuilder {

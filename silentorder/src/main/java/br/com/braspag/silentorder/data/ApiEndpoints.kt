@@ -1,6 +1,6 @@
 package br.com.braspag.silentorder.data
 
-import br.com.braspag.silentorder.model.Environment
+import br.com.braspag.silentorder.enums.Environment
 
 class ApiEndpoints(
     private val environment: Environment

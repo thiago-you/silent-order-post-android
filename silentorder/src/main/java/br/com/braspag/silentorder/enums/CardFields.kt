@@ -1,4 +1,4 @@
-package br.com.braspag.silentorder.model
+package br.com.braspag.silentorder.enums
 
 enum class CardFields {
     ACCESS_TOKEN,

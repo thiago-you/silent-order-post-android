@@ -1,12 +1,11 @@
 package br.com.braspag.silentorder.data
 
-import br.com.braspag.silentorder.model.Environment
-import br.com.braspag.silentorder.model.ErrorResult
+import br.com.braspag.silentorder.enums.Environment
+import br.com.braspag.silentorder.model.ApiResult
 import br.com.braspag.silentorder.model.SilentOrderResult
-import br.com.braspag.silentorder.model.SuccessResult
 
 internal class RemoteDatasource(
-    private val environment: Environment
+    private val environment: Environment,
 ) {
     fun silentOrder(
         accessToken: String,
@@ -15,7 +14,7 @@ internal class RemoteDatasource(
         cardNumber: String,
         cardExpiration: String,
         cardCvv: String,
-        onResult: SilentOrderResult
+        onResult: SilentOrderResult,
     ) {
         val formBody = ApiFormBuilder.getForm(
             accessToken = accessToken,
@@ -28,25 +27,14 @@ internal class RemoteDatasource(
 
         val response = ApiClient(environment).sendRequest(formBody)
 
-        if (response.isSuccessful) {
-            val result = ApiResult().fromResponse(response)
+        val successResult = ApiResultHandler().fromResponse(response)
 
-            onResult.onSuccess(
-                SuccessResult(
-                    paymentToken = result?.paymentToken ?: "invalid",
-                    brand = result?.brand,
-                    foreignCard = result?.foreignCard,
-                    binQueryReturnCode = result?.binQueryReturnCode,
-                    binQueryReturnMessage = result?.binQueryReturnMessage
-                )
-            )
-        } else {
-            onResult.onError(
-                ErrorResult(
-                    errorCode = response.code.toString(),
-                    errorMessage = response.message
-                )
-            )
-        }
+        val apiResult = ApiResult(
+            code = response.code.toString(),
+            message = response.message,
+            result = successResult
+        )
+        
+        onResult.onResult(apiResult)
     }
 }

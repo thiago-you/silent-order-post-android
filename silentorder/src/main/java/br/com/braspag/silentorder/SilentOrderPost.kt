@@ -2,8 +2,8 @@ package br.com.braspag.silentorder
 
 import br.com.braspag.silentorder.data.CardValidation
 import br.com.braspag.silentorder.data.RemoteDatasource
-import br.com.braspag.silentorder.model.CardFields
-import br.com.braspag.silentorder.model.Environment
+import br.com.braspag.silentorder.enums.CardFields
+import br.com.braspag.silentorder.enums.Environment
 import br.com.braspag.silentorder.model.SilentOrderResult
 import br.com.braspag.silentorder.model.ValidationResults
 
