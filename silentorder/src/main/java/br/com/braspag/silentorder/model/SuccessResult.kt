@@ -1,11 +1,16 @@
 package br.com.braspag.silentorder.model
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class SuccessResult(
-    @field:Json(name = "PaymentToken") val paymentToken: String,
-    @field:Json(name = "Brand") val brand: String?,
-    @field:Json(name = "ForeignCard") val foreignCard: Boolean?,
-    @field:Json(name = "BinQueryReturnCode") val binQueryReturnCode: String?,
-    @field:Json(name = "BinQueryReturnMessage") val binQueryReturnMessage: String?
+    @SerializedName("PaymentToken")
+    val paymentToken: String?,
+    @SerializedName("Brand")
+    val brand: String?,
+    @SerializedName("ForeignCard")
+    val foreignCard: Boolean?,
+    @SerializedName("BinQueryReturnCode")
+    val binQueryReturnCode: String?,
+    @SerializedName("BinQueryReturnMessage")
+    val binQueryReturnMessage: String?
 )
