@@ -2,82 +2,36 @@ package br.com.braspag.silentorder.data
 
 import br.com.braspag.silentorder.model.Environment
 import br.com.braspag.silentorder.model.ErrorResult
+import br.com.braspag.silentorder.model.SilentOrderResult
 import br.com.braspag.silentorder.model.SuccessResult
-import br.com.braspag.silentorder.model.ValidationResults
-import br.com.braspag.silentorderpost.BuildConfig
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.logging.HttpLoggingInterceptor
 
-internal class RemoteDatasource {
-
-    companion object {
-        const val SANDBOX_URL = "https://transactionsandbox.pagador.com.br/post/api/public/v1/card"
-        const val PRODUCTION_URL =
-            "https://transaction.cieloecommerce.cielo.com.br/post/api/public/v1/card"
-
-        const val FIELD_ACCESS_TOKEN = "AccessToken"
-        const val FIELD_HOLDER = "HolderName"
-        const val FIELD_RAW_NUMBER = "RawNumber"
-        const val FIELD_EXPIRATION = "Expiration"
-        const val FIELD_SECURITY_CODE = "SecurityCode"
-        const val FIELD_ENABLE_BINQUERY = "EnableBinQuery"
-    }
-
-    @Suppress("UNUSED_PARAMETER")
+internal class RemoteDatasource(
+    private val environment: Environment
+) {
     fun silentOrder(
-        environment: Environment,
         accessToken: String,
+        enableBinQuery: Boolean,
         cardHolderName: String,
         cardNumber: String,
         cardExpiration: String,
-        cardSecurityCode: String,
-        enableBinQuery: Boolean,
-        onValidation: ((List<ValidationResults>) -> Unit)?,
-        onSuccess: ((SuccessResult) -> Unit)?,
-        onError: ((ErrorResult) -> Unit)?
+        cardCvv: String,
+        onResult: SilentOrderResult
     ) {
+        val formBody = ApiFormBuilder.getForm(
+            accessToken = accessToken,
+            enableBinQuery = enableBinQuery,
+            cardHolderName = cardHolderName,
+            cardNumber = cardNumber,
+            cardExpiration = cardExpiration,
+            cardCvv = cardCvv
+        )
 
-        val url = if (environment == Environment.PRODUCTION) PRODUCTION_URL else SANDBOX_URL
-
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-        val successJsonAdapter = moshi.adapter(SuccessResult::class.java)
-
-        val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
-
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-
-        val formBody = FormBody.Builder()
-            .add(FIELD_ACCESS_TOKEN, accessToken)
-            .add(FIELD_HOLDER, cardHolderName)
-            .add(FIELD_RAW_NUMBER, cardNumber)
-            .add(FIELD_EXPIRATION, cardExpiration)
-            .add(FIELD_SECURITY_CODE, cardSecurityCode)
-            .add(FIELD_ENABLE_BINQUERY, enableBinQuery.toString())
-            .build()
-
-        val xSdkVersion = BuildConfig.X_SDK_VERSION
-        val request = Request.Builder()
-            .addHeader("x-sdk-version", xSdkVersion)
-            .url(url)
-            .post(formBody)
-            .build()
-
-        val response = client.newCall(request).execute()
+        val response = ApiClient(environment).sendRequest(formBody)
 
         if (response.isSuccessful) {
-            val result = successJsonAdapter.fromJson(response.body?.string() ?: "")
+            val result = ApiResult().fromResponse(response)
 
-            onSuccess?.invoke(
+            onResult.onSuccess(
                 SuccessResult(
                     paymentToken = result?.paymentToken ?: "invalid",
                     brand = result?.brand,
@@ -87,7 +41,7 @@ internal class RemoteDatasource {
                 )
             )
         } else {
-            onError?.invoke(
+            onResult.onError(
                 ErrorResult(
                     errorCode = response.code.toString(),
                     errorMessage = response.message

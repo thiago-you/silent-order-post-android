@@ -1,22 +1,15 @@
 package br.com.braspag.silentorder
 
+import br.com.braspag.silentorder.data.CardValidation
 import br.com.braspag.silentorder.data.RemoteDatasource
-import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_EXPIRATION
-import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_RAW_NUMBER
-import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_SECURITY_CODE
-import br.com.braspag.silentorder.data.RemoteDatasource.Companion.FIELD_HOLDER
+import br.com.braspag.silentorder.model.CardFields
 import br.com.braspag.silentorder.model.Environment
-import br.com.braspag.silentorder.model.ErrorResult
-import br.com.braspag.silentorder.model.SuccessResult
+import br.com.braspag.silentorder.model.SilentOrderResult
 import br.com.braspag.silentorder.model.ValidationResults
 
-class SilentOrderPost(private val environment: Environment) {
-
-    private var language = "PT"
-    private var cvvvRequired = true
-    private var mod10required = true
-    private var provider = "cielo"
-
+class SilentOrderPost(
+    private val environment: Environment
+) {
     var accessToken: String = ""
     var enableBinQuery = false
 
@@ -25,83 +18,46 @@ class SilentOrderPost(private val environment: Environment) {
         cardNumber: String = "",
         cardExpirationDate: String = "",
         cardCvv: String = "",
-        onValidation: ((List<ValidationResults>) -> Unit)?,
-        onSuccess: ((SuccessResult) -> Unit)?,
-        onError: ((ErrorResult) -> Unit)?
+        onResult: SilentOrderResult
     ) {
-
-        // validate input
         val validationErrors = validate(cardHolderName, cardNumber, cardExpirationDate, cardCvv)
+
         if (validationErrors.isNotEmpty()) {
-            onValidation?.invoke(validationErrors)
-            return
+            return onResult.onValidation(validationErrors)
         }
 
-        // call API
-        RemoteDatasource().silentOrder(
-            environment,
-            accessToken,
-            cardHolderName,
-            cardNumber,
-            cardExpirationDate,
-            cardCvv,
-            enableBinQuery,
-            onValidation,
-            onSuccess,
-            onError
+        RemoteDatasource(environment).silentOrder(
+            accessToken = accessToken,
+            enableBinQuery = enableBinQuery,
+            cardHolderName = cardHolderName,
+            cardNumber = cardNumber,
+            cardExpiration = cardExpirationDate,
+            cardCvv = cardCvv,
+            onResult = onResult
         )
-
-        // return the results
     }
 
     private fun validate(
-        cardHolderName: String = "",
-        cardNumber: String = "",
-        cardExpirationDate: String = "",
-        cardCvv: String = ""
+        cardHolderName: String,
+        cardNumber: String,
+        cardExpirationDate: String,
+        cardCvv: String
     ): List<ValidationResults> {
-
-        // validate input
         val validationErrors = mutableListOf<ValidationResults>()
 
         if (cardHolderName.isEmpty()) {
-            validationErrors.add(
-                ValidationResults(
-                    FIELD_HOLDER,
-                    "Nome do portador é um campo obrigatório!"
-                )
-            )
+            validationErrors.add(CardValidation().getValidationResult(CardFields.CARD_HOLDER_NAME))
         }
-
         if (cardNumber.isEmpty()) {
-            validationErrors.add(
-                ValidationResults(
-                    FIELD_RAW_NUMBER,
-                    "Número do cartão é um campo obrigatório!"
-                )
-            )
+            validationErrors.add(CardValidation().getValidationResult(CardFields.CARD_NUMBER))
         }
-
         if (cardExpirationDate.isEmpty()) {
-            validationErrors.add(
-                ValidationResults(
-                    FIELD_EXPIRATION,
-                    "Data de expiração do cartão é um campo obrigatório!"
-                )
-            )
+            validationErrors.add(CardValidation().getValidationResult(CardFields.CARD_EXPIRATION))
         }
-
         if (cardCvv.isEmpty()) {
-            validationErrors.add(
-                ValidationResults(
-                    FIELD_SECURITY_CODE,
-                    "CVV é um campo obrigatório!"
-                )
-            )
+            validationErrors.add(CardValidation().getValidationResult(CardFields.CARD_CVV))
         }
 
         return validationErrors
     }
 }
-
-
