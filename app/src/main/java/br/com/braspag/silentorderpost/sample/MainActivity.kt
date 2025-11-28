@@ -1,6 +1,7 @@
 package br.com.braspag.silentorderpost.sample
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import br.com.braspag.silentorder.SilentOrderPost
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        enableEdgeToEdge()
+        
         setContentView(R.layout.activity_main)
 
         findViewById<Toolbar>(R.id.toolbar)?.also { toolbar ->

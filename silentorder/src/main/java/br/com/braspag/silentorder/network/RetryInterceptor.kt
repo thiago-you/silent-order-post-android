@@ -20,12 +20,7 @@ class RetryInterceptor private constructor(
 ) : Interceptor {
 
     companion object RetryInterceptorFactory {
-        fun create(
-            maxRetries: Int = 3,
-            initialDelay: Long = 1000L,
-            multiplier: Double = 2.0,
-            maxDelay: Long = 3000L
-        ) = RetryInterceptor(maxRetries, initialDelay, multiplier, maxDelay)
+        fun create() = RetryInterceptor()
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
