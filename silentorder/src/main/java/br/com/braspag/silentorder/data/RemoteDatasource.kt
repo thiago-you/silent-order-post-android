@@ -13,6 +13,7 @@ internal class RemoteDatasource(
     fun silentOrder(
         accessToken: String,
         enableBinQuery: Boolean,
+        logResponse: Boolean,
         cardHolderName: String,
         cardNumber: String,
         cardExpiration: String,
@@ -30,7 +31,7 @@ internal class RemoteDatasource(
 
         val response = ApiClient(environment).sendRequest(formBody)
 
-        val successResult = ApiResultHandler().fromResponse(response)
+        val successResult = ApiResultHandler(logResponse).fromResponse(response)
 
         val apiResult = ApiResult(
             code = response.code.toString(),

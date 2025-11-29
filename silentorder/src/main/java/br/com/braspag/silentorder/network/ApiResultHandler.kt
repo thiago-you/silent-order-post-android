@@ -5,7 +5,9 @@ import br.com.braspag.silentorder.model.SuccessResult
 import com.google.gson.Gson
 import okhttp3.Response
 
-class ApiResultHandler {
+class ApiResultHandler(
+    private val logResponse: Boolean
+) {
     fun fromResponse(response: Response): SuccessResult? {
         if (!response.isSuccessful) {
             return null
@@ -13,7 +15,9 @@ class ApiResultHandler {
 
         val data = response.body?.string().orEmpty()
 
-        Log.e("TESTE", data)
+        if (logResponse) {
+            Log.e("SilentOrderPostResult", data)
+        }
 
         return Gson().fromJson(data, SuccessResult::class.java)
     }

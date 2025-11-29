@@ -10,9 +10,22 @@ import br.com.braspag.silentorder.model.ValidationResults
 class SilentOrderPost(
     private val environment: Environment
 ) {
-    var accessToken: String = ""
-    var enableBinQuery = false
+    private var accessToken: String = ""
+    private var enableBinQuery = false
+    private var logResponse = false
 
+    fun withAccessToken(accessToken: String) = this.apply { 
+        this.accessToken = accessToken
+    }
+    
+    fun withBinQuery(enable: Boolean) = this.apply { 
+        this.enableBinQuery = enable
+    }
+    
+    fun withResponseLog(log: Boolean) = this.apply { 
+        this.logResponse = log
+    }
+    
     fun sendCardData(
         cardHolderName: String = "",
         cardNumber: String = "",
@@ -29,6 +42,7 @@ class SilentOrderPost(
         RemoteDatasource(environment).silentOrder(
             accessToken = accessToken,
             enableBinQuery = enableBinQuery,
+            logResponse = logResponse,
             cardHolderName = cardHolderName,
             cardNumber = cardNumber,
             cardExpiration = cardExpirationDate,
