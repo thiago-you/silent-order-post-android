@@ -1,10 +1,14 @@
 package br.com.braspag.silentorderpost.sample.data.model
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class AccessTokenResponse(
-    @Json(name = "MerchantId") val merchantId: String,
-    @Json(name = "AccessToken") val accessToken: String,
-    @Json(name = "Issued") val issued: String,
-    @Json(name = "ExpiresIn") val expiresIn: String
+    @SerializedName("MerchantId")
+    val merchantId: String,
+    @SerializedName("AccessToken")
+    val accessToken: String,
+    @SerializedName("Issued")
+    val issued: String,
+    @SerializedName("ExpiresIn")
+    val expiresIn: String
 )

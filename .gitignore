@@ -38,6 +38,19 @@ captures/
 .idea/workspace.xml
 .idea/libraries
 .idea/caches/build_file_checksums.ser
+.idea/caches
+.idea/dictionaries
+.idea/migrations.xml
+.idea/runConfigurations.xml
+.idea/deploymentTargetSelector.xml
+.idea/deploymentTargetDropDown.xml
+.idea/deployment*
+.idea/copilot.data.migration.agent.xml
+.idea/copilot.data.migration.ask.xml
+.idea/copilot.data.migration.ask2agent.xml
+.idea/copilot.data.migration.edit.xml
+.idea/copilot.*
+.kotlin
 
 # Keystore files
 *.jks

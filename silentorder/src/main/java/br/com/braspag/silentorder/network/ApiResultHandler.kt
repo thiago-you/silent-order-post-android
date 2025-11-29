@@ -1,22 +1,24 @@
 package br.com.braspag.silentorder.network
 
+import android.util.Log
 import br.com.braspag.silentorder.model.SuccessResult
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.google.gson.Gson
 import okhttp3.Response
 
-class ApiResultHandler {
+class ApiResultHandler(
+    private val logResponse: Boolean
+) {
     fun fromResponse(response: Response): SuccessResult? {
         if (!response.isSuccessful) {
             return null
         }
-        
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
 
-        val successJsonAdapter = moshi.adapter(SuccessResult::class.java)
+        val data = response.body?.string().orEmpty()
 
-        return successJsonAdapter.fromJson(response.body?.string().orEmpty())
+        if (logResponse) {
+            Log.e("SilentOrderPostResult", data)
+        }
+
+        return Gson().fromJson(data, SuccessResult::class.java)
     }
 }

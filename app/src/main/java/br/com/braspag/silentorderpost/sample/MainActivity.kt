@@ -53,8 +53,9 @@ class MainActivity : AppCompatActivity() {
     private fun silentOrder(accessToken: String) {
         snackbar("Sucesso! AccessToken = $accessToken")
 
-        sdk.accessToken = accessToken
-        sdk.enableBinQuery = true
+        sdk.withAccessToken(accessToken)
+            .withBinQuery(true)
+            .withResponseLog(true)
 
         sdk.sendCardData(
             cardHolderName = "Joselito Barbacena",
